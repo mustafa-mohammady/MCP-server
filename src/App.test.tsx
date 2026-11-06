@@ -42,6 +42,17 @@ describe("App", () => {
     expect(titles).toEqual(["Dune", "The Hobbit", "Gone Girl", "Sapiens"]);
   });
 
+  test("clears the search field", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    const search = screen.getByLabelText("Search");
+    await user.type(search, "dune");
+    expect(screen.getAllByRole("heading", { level: 3 })).toHaveLength(1);
+    await user.click(screen.getByRole("button", { name: "Clear search" }));
+    expect(search).toHaveValue("");
+    expect(screen.getAllByRole("heading", { level: 3 })).toHaveLength(5);
+  });
+
   test("shows 'Average rating: 4' for the sample books", () => {
     render(<App />);
     const stats = screen.getByText(/Average rating/);

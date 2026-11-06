@@ -32,6 +32,13 @@ export default function App() {
             onChange={(event) => setQuery(event.target.value)}
           />
         </label>
+        <button
+          type="button"
+          onClick={() => setQuery("")}
+          disabled={query === ""}
+        >
+          Clear search
+        </button>
         <label>
           Genre
           <select
